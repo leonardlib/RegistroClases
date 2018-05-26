@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AlumnoClaseCreateDlg" widgetVar="AlumnoClaseCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAlumnoClaseTitle}" closeOnEscape="true">
+
+            <h:form id="AlumnoClaseCreateForm">
+
+                <h:panelGroup id="display" rendered="#{alumnoClaseController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateAlumnoClaseLabel_fechaInscripcion}" for="fechaInscripcion" />
+                        <p:calendar id="fechaInscripcion" pattern="MM/dd/yyyy HH:mm:ss" value="#{alumnoClaseController.selected.fechaInscripcion}" title="#{bundle.CreateAlumnoClaseTitle_fechaInscripcion}" required="true" requiredMessage="#{bundle.CreateAlumnoClaseRequiredMessage_fechaInscripcion}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateAlumnoClaseLabel_idAlumno}" for="idAlumno" />
+                        <p:selectOneMenu id="idAlumno" value="#{alumnoClaseController.selected.idAlumno}" required="true" requiredMessage="#{bundle.CreateAlumnoClaseRequiredMessage_idAlumno}" converter="alumnoConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{alumnoController.items}"
+                                           var="idAlumnoItem"
+                                           itemValue="#{idAlumnoItem}"
+                                           itemLabel="#{idAlumnoItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateAlumnoClaseLabel_idClase}" for="idClase" />
+                        <p:selectOneMenu id="idClase" value="#{alumnoClaseController.selected.idClase}" required="true" requiredMessage="#{bundle.CreateAlumnoClaseRequiredMessage_idClase}" converter="claseConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{claseController.items}"
+                                           var="idClaseItem"
+                                           itemValue="#{idClaseItem}"
+                                           itemLabel="#{idClaseItem.descripcion.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{alumnoClaseController.saveNew}" value="#{bundle.Save}" update="display,:AlumnoClaseListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AlumnoClaseCreateDialog'));">
+                        <p:confirm header="#{bundle.ConfirmationHeader}" message="#{bundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('AlumnoClaseCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

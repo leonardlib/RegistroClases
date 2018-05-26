@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClaseCreateDlg" widgetVar="ClaseCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClaseTitle}" closeOnEscape="true">
+
+            <h:form id="ClaseCreateForm">
+
+                <h:panelGroup id="display" rendered="#{claseController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_nombre}" for="nombre" />
+                        <p:inputTextarea rows="4" cols="30" id="nombre" value="#{claseController.selected.nombre}" title="#{bundle.CreateClaseTitle_nombre}" required="true" requiredMessage="#{bundle.CreateClaseRequiredMessage_nombre}"/>
+
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{claseController.selected.descripcion}" title="#{bundle.CreateClaseTitle_descripcion}" />
+
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_fechaHora}" for="fechaHora" />
+                        <p:calendar id="fechaHora" pattern="MM/dd/yyyy HH:mm:ss" value="#{claseController.selected.fechaHora}" title="#{bundle.CreateClaseTitle_fechaHora}" required="true" requiredMessage="#{bundle.CreateClaseRequiredMessage_fechaHora}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.CreateClaseLabel_idMaestro}" for="idMaestro" />
+                        <p:selectOneMenu id="idMaestro" value="#{claseController.selected.idMaestro}" required="true" requiredMessage="#{bundle.CreateClaseRequiredMessage_idMaestro}" converter="maestroConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{maestroController.items}"
+                                           var="idMaestroItem"
+                                           itemValue="#{idMaestroItem}"
+                                           itemLabel="#{idMaestroItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{claseController.saveNew}" value="#{bundle.Save}" update="display,:ClaseListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ClaseCreateDialog'));">
+                        <p:confirm header="#{bundle.ConfirmationHeader}" message="#{bundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ClaseCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

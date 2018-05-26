@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DireccionViewPage" lazy="true">
+        <pm:header title="#{bundle.ViewDireccionTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{bundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DireccionListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DireccionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{direccionController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewDireccionLabel_id}"/>
+                            <h:outputText value="#{direccionController.selected.id}" title="#{bundle.ViewDireccionTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewDireccionLabel_calle}"/>
+                            <h:outputText value="#{direccionController.selected.calle}" title="#{bundle.ViewDireccionTitle_calle}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewDireccionLabel_numero}"/>
+                            <h:outputText value="#{direccionController.selected.numero}" title="#{bundle.ViewDireccionTitle_numero}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewDireccionLabel_colonia}"/>
+                            <h:outputText value="#{direccionController.selected.colonia}" title="#{bundle.ViewDireccionTitle_colonia}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewDireccionLabel_ciudad}"/>
+                            <h:outputText value="#{direccionController.selected.ciudad}" title="#{bundle.ViewDireccionTitle_ciudad}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewDireccionLabel_estado}"/>
+                            <h:outputText value="#{direccionController.selected.estado}" title="#{bundle.ViewDireccionTitle_estado}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

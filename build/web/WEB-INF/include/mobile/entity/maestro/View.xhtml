@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MaestroViewPage" lazy="true">
+        <pm:header title="#{bundle.ViewMaestroTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{bundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MaestroListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MaestroViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{maestroController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewMaestroLabel_id}"/>
+                            <h:outputText value="#{maestroController.selected.id}" title="#{bundle.ViewMaestroTitle_id}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewMaestroLabel_nombre}"/>
+                            <h:outputText value="#{maestroController.selected.nombre}" title="#{bundle.ViewMaestroTitle_nombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewMaestroLabel_apellidos}"/>
+                            <h:outputText value="#{maestroController.selected.apellidos}" title="#{bundle.ViewMaestroTitle_apellidos}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewMaestroLabel_correo}"/>
+                            <h:outputText value="#{maestroController.selected.correo}" title="#{bundle.ViewMaestroTitle_correo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewMaestroLabel_telefono}"/>
+                            <h:outputText value="#{maestroController.selected.telefono}" title="#{bundle.ViewMaestroTitle_telefono}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{bundle.ViewMaestroLabel_idDireccion}"/>
+                            <h:outputText value="#{maestroController.selected.idDireccion.id}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

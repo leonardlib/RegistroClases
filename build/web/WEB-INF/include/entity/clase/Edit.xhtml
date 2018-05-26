@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ClaseEditDlg" widgetVar="ClaseEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditClaseTitle}" closeOnEscape="true">
+
+            <h:form id="ClaseEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{claseController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditClaseLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{claseController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditClaseLabel_nombre}" for="nombre" />
+                        <p:inputTextarea rows="4" cols="30" id="nombre" value="#{claseController.selected.nombre}" title="#{bundle.EditClaseTitle_nombre}" required="true" requiredMessage="#{bundle.EditClaseRequiredMessage_nombre}"/>
+
+                        <p:outputLabel value="#{bundle.EditClaseLabel_descripcion}" for="descripcion" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{claseController.selected.descripcion}" title="#{bundle.EditClaseTitle_descripcion}" />
+
+                        <p:outputLabel value="#{bundle.EditClaseLabel_fechaHora}" for="fechaHora" />
+                        <p:calendar id="fechaHora" pattern="MM/dd/yyyy HH:mm:ss" value="#{claseController.selected.fechaHora}" title="#{bundle.EditClaseTitle_fechaHora}" required="true" requiredMessage="#{bundle.EditClaseRequiredMessage_fechaHora}" showOn="button"/>
+
+                        <p:outputLabel value="#{bundle.EditClaseLabel_idMaestro}" for="idMaestro" />
+                        <p:selectOneMenu id="idMaestro" value="#{claseController.selected.idMaestro}" required="true" requiredMessage="#{bundle.EditClaseRequiredMessage_idMaestro}" converter="maestroConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{maestroController.items}"
+                                           var="idMaestroItem"
+                                           itemValue="#{idMaestroItem}"
+                                           itemLabel="#{idMaestroItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{claseController.save}" value="#{bundle.Save}" update="display,:ClaseListForm:datalist,:ClaseListForm:ClaseDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ClaseEditDialog'));">
+                        <p:confirm header="#{bundle.ConfirmationHeader}" message="#{bundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ClaseEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

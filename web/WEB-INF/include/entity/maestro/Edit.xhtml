@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MaestroEditDlg" widgetVar="MaestroEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditMaestroTitle}" closeOnEscape="true">
+
+            <h:form id="MaestroEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{maestroController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditMaestroLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{maestroController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditMaestroLabel_nombre}" for="nombre" />
+                        <p:inputTextarea rows="4" cols="30" id="nombre" value="#{maestroController.selected.nombre}" title="#{bundle.EditMaestroTitle_nombre}" required="true" requiredMessage="#{bundle.EditMaestroRequiredMessage_nombre}"/>
+
+                        <p:outputLabel value="#{bundle.EditMaestroLabel_apellidos}" for="apellidos" />
+                        <p:inputTextarea rows="4" cols="30" id="apellidos" value="#{maestroController.selected.apellidos}" title="#{bundle.EditMaestroTitle_apellidos}" required="true" requiredMessage="#{bundle.EditMaestroRequiredMessage_apellidos}"/>
+
+                        <p:outputLabel value="#{bundle.EditMaestroLabel_correo}" for="correo" />
+                        <p:inputTextarea rows="4" cols="30" id="correo" value="#{maestroController.selected.correo}" title="#{bundle.EditMaestroTitle_correo}" required="true" requiredMessage="#{bundle.EditMaestroRequiredMessage_correo}"/>
+
+                        <p:outputLabel value="#{bundle.EditMaestroLabel_telefono}" for="telefono" />
+                        <p:inputTextarea rows="4" cols="30" id="telefono" value="#{maestroController.selected.telefono}" title="#{bundle.EditMaestroTitle_telefono}" required="true" requiredMessage="#{bundle.EditMaestroRequiredMessage_telefono}"/>
+
+                        <p:outputLabel value="#{bundle.EditMaestroLabel_idDireccion}" for="idDireccion" />
+                        <p:selectOneMenu id="idDireccion" value="#{maestroController.selected.idDireccion}" required="true" requiredMessage="#{bundle.EditMaestroRequiredMessage_idDireccion}" converter="direccionConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{direccionController.items}"
+                                           var="idDireccionItem"
+                                           itemValue="#{idDireccionItem}"
+                                           itemLabel="#{idDireccionItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{maestroController.save}" value="#{bundle.Save}" update="display,:MaestroListForm:datalist,:MaestroListForm:MaestroDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MaestroEditDialog'));">
+                        <p:confirm header="#{bundle.ConfirmationHeader}" message="#{bundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('MaestroEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DireccionEditPage" lazy="true">
+        <pm:header title="#{bundle.EditDireccionTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{bundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:DireccionListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DireccionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{direccionController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{bundle.EditDireccionLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{direccionController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditDireccionLabel_calle}" for="calle" />
+                            <p:inputTextarea rows="4" cols="30" id="calle" value="#{direccionController.selected.calle}" title="#{bundle.EditDireccionTitle_calle}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_calle}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditDireccionLabel_numero}" for="numero" />
+                            <p:inputTextarea rows="4" cols="30" id="numero" value="#{direccionController.selected.numero}" title="#{bundle.EditDireccionTitle_numero}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_numero}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditDireccionLabel_colonia}" for="colonia" />
+                            <p:inputTextarea rows="4" cols="30" id="colonia" value="#{direccionController.selected.colonia}" title="#{bundle.EditDireccionTitle_colonia}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_colonia}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditDireccionLabel_ciudad}" for="ciudad" />
+                            <p:inputTextarea rows="4" cols="30" id="ciudad" value="#{direccionController.selected.ciudad}" title="#{bundle.EditDireccionTitle_ciudad}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_ciudad}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditDireccionLabel_estado}" for="estado" />
+                            <p:inputTextarea rows="4" cols="30" id="estado" value="#{direccionController.selected.estado}" title="#{bundle.EditDireccionTitle_estado}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_estado}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{direccionController.save}" value="#{bundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:DireccionListPage:DireccionListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:DireccionListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

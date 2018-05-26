@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AlumnoEditPage" lazy="true">
+        <pm:header title="#{bundle.EditAlumnoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{bundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AlumnoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AlumnoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{alumnoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{bundle.EditAlumnoLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{alumnoController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditAlumnoLabel_numeroControl}" for="numeroControl" />
+                            <p:inputText id="numeroControl" value="#{alumnoController.selected.numeroControl}" title="#{bundle.EditAlumnoTitle_numeroControl}" required="true" requiredMessage="#{bundle.EditAlumnoRequiredMessage_numeroControl}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditAlumnoLabel_nombre}" for="nombre" />
+                            <p:inputTextarea rows="4" cols="30" id="nombre" value="#{alumnoController.selected.nombre}" title="#{bundle.EditAlumnoTitle_nombre}" required="true" requiredMessage="#{bundle.EditAlumnoRequiredMessage_nombre}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditAlumnoLabel_apellidos}" for="apellidos" />
+                            <p:inputTextarea rows="4" cols="30" id="apellidos" value="#{alumnoController.selected.apellidos}" title="#{bundle.EditAlumnoTitle_apellidos}" required="true" requiredMessage="#{bundle.EditAlumnoRequiredMessage_apellidos}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditAlumnoLabel_correo}" for="correo" />
+                            <p:inputTextarea rows="4" cols="30" id="correo" value="#{alumnoController.selected.correo}" title="#{bundle.EditAlumnoTitle_correo}" required="true" requiredMessage="#{bundle.EditAlumnoRequiredMessage_correo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditAlumnoLabel_telefono}" for="telefono" />
+                            <p:inputTextarea rows="4" cols="30" id="telefono" value="#{alumnoController.selected.telefono}" title="#{bundle.EditAlumnoTitle_telefono}" required="true" requiredMessage="#{bundle.EditAlumnoRequiredMessage_telefono}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditAlumnoLabel_idDireccion}" for="idDireccion" />
+                            <p:selectOneMenu id="idDireccion" value="#{alumnoController.selected.idDireccion}" required="true" requiredMessage="#{bundle.EditAlumnoRequiredMessage_idDireccion}" converter="direccionConverter">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{direccionController.items}"
+                                               var="idDireccionItem"
+                                               itemValue="#{idDireccionItem}"
+                                               itemLabel="#{idDireccionItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{alumnoController.save}" value="#{bundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:AlumnoListPage:AlumnoListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:AlumnoListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AlumnoCreateDlg" widgetVar="AlumnoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAlumnoTitle}" closeOnEscape="true">
+
+            <h:form id="AlumnoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{alumnoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{bundle.CreateAlumnoLabel_numeroControl}" for="numeroControl" />
+                        <p:inputText id="numeroControl" value="#{alumnoController.selected.numeroControl}" title="#{bundle.CreateAlumnoTitle_numeroControl}" required="true" requiredMessage="#{bundle.CreateAlumnoRequiredMessage_numeroControl}"/>
+
+                        <p:outputLabel value="#{bundle.CreateAlumnoLabel_nombre}" for="nombre" />
+                        <p:inputTextarea rows="4" cols="30" id="nombre" value="#{alumnoController.selected.nombre}" title="#{bundle.CreateAlumnoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateAlumnoRequiredMessage_nombre}"/>
+
+                        <p:outputLabel value="#{bundle.CreateAlumnoLabel_apellidos}" for="apellidos" />
+                        <p:inputTextarea rows="4" cols="30" id="apellidos" value="#{alumnoController.selected.apellidos}" title="#{bundle.CreateAlumnoTitle_apellidos}" required="true" requiredMessage="#{bundle.CreateAlumnoRequiredMessage_apellidos}"/>
+
+                        <p:outputLabel value="#{bundle.CreateAlumnoLabel_correo}" for="correo" />
+                        <p:inputTextarea rows="4" cols="30" id="correo" value="#{alumnoController.selected.correo}" title="#{bundle.CreateAlumnoTitle_correo}" required="true" requiredMessage="#{bundle.CreateAlumnoRequiredMessage_correo}"/>
+
+                        <p:outputLabel value="#{bundle.CreateAlumnoLabel_telefono}" for="telefono" />
+                        <p:inputTextarea rows="4" cols="30" id="telefono" value="#{alumnoController.selected.telefono}" title="#{bundle.CreateAlumnoTitle_telefono}" required="true" requiredMessage="#{bundle.CreateAlumnoRequiredMessage_telefono}"/>
+
+                        <p:outputLabel value="#{bundle.CreateAlumnoLabel_idDireccion}" for="idDireccion" />
+                        <p:selectOneMenu id="idDireccion" value="#{alumnoController.selected.idDireccion}" required="true" requiredMessage="#{bundle.CreateAlumnoRequiredMessage_idDireccion}" converter="direccionConverter">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{direccionController.items}"
+                                           var="idDireccionItem"
+                                           itemValue="#{idDireccionItem}"
+                                           itemLabel="#{idDireccionItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{alumnoController.saveNew}" value="#{bundle.Save}" update="display,:AlumnoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AlumnoCreateDialog'));">
+                        <p:confirm header="#{bundle.ConfirmationHeader}" message="#{bundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('AlumnoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

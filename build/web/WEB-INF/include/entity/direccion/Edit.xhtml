@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DireccionEditDlg" widgetVar="DireccionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{bundle.EditDireccionTitle}" closeOnEscape="true">
+
+            <h:form id="DireccionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{direccionController.selected != null}">
+
+
+                        <h:outputLabel value="#{bundle.EditDireccionLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{direccionController.selected.id}" />
+
+                        <p:outputLabel value="#{bundle.EditDireccionLabel_calle}" for="calle" />
+                        <p:inputTextarea rows="4" cols="30" id="calle" value="#{direccionController.selected.calle}" title="#{bundle.EditDireccionTitle_calle}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_calle}"/>
+
+                        <p:outputLabel value="#{bundle.EditDireccionLabel_numero}" for="numero" />
+                        <p:inputTextarea rows="4" cols="30" id="numero" value="#{direccionController.selected.numero}" title="#{bundle.EditDireccionTitle_numero}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_numero}"/>
+
+                        <p:outputLabel value="#{bundle.EditDireccionLabel_colonia}" for="colonia" />
+                        <p:inputTextarea rows="4" cols="30" id="colonia" value="#{direccionController.selected.colonia}" title="#{bundle.EditDireccionTitle_colonia}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_colonia}"/>
+
+                        <p:outputLabel value="#{bundle.EditDireccionLabel_ciudad}" for="ciudad" />
+                        <p:inputTextarea rows="4" cols="30" id="ciudad" value="#{direccionController.selected.ciudad}" title="#{bundle.EditDireccionTitle_ciudad}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_ciudad}"/>
+
+                        <p:outputLabel value="#{bundle.EditDireccionLabel_estado}" for="estado" />
+                        <p:inputTextarea rows="4" cols="30" id="estado" value="#{direccionController.selected.estado}" title="#{bundle.EditDireccionTitle_estado}" required="true" requiredMessage="#{bundle.EditDireccionRequiredMessage_estado}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{direccionController.save}" value="#{bundle.Save}" update="display,:DireccionListForm:datalist,:DireccionListForm:DireccionDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DireccionEditDialog'));">
+                        <p:confirm header="#{bundle.ConfirmationHeader}" message="#{bundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('DireccionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

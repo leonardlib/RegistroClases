@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AlumnoClaseEditPage" lazy="true">
+        <pm:header title="#{bundle.EditAlumnoClaseTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{bundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:AlumnoClaseListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AlumnoClaseEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{alumnoClaseController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{bundle.EditAlumnoClaseLabel_id}" for="id" />
+                            <h:outputText id="id" value="#{alumnoClaseController.selected.id}" />
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditAlumnoClaseLabel_fechaInscripcion}" for="fechaInscripcion" />
+                            <p:calendar id="fechaInscripcion" pattern="MM/dd/yyyy HH:mm:ss" value="#{alumnoClaseController.selected.fechaInscripcion}" title="#{bundle.EditAlumnoClaseTitle_fechaInscripcion}" required="true" requiredMessage="#{bundle.EditAlumnoClaseRequiredMessage_fechaInscripcion}" showOn="button"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditAlumnoClaseLabel_idAlumno}" for="idAlumno" />
+                            <p:selectOneMenu id="idAlumno" value="#{alumnoClaseController.selected.idAlumno}" required="true" requiredMessage="#{bundle.EditAlumnoClaseRequiredMessage_idAlumno}" converter="alumnoConverter">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{alumnoController.items}"
+                                               var="idAlumnoItem"
+                                               itemValue="#{idAlumnoItem}"
+                                               itemLabel="#{idAlumnoItem.id.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{bundle.EditAlumnoClaseLabel_idClase}" for="idClase" />
+                            <p:selectOneMenu id="idClase" value="#{alumnoClaseController.selected.idClase}" required="true" requiredMessage="#{bundle.EditAlumnoClaseRequiredMessage_idClase}" converter="claseConverter">
+                                <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{claseController.items}"
+                                               var="idClaseItem"
+                                               itemValue="#{idClaseItem}"
+                                               itemLabel="#{idClaseItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{alumnoClaseController.save}" value="#{bundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:AlumnoClaseListPage:AlumnoClaseListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:AlumnoClaseListPage')}"/>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>
